@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>审稿别靠人眼：把&quot;这章不行&quot;变成一张检查表 · 网文写作智库</title>
+<meta name="description" content="写完一章，只觉得&quot;没劲&quot;，却说不出问题在哪——这是最耗人的状态。把主观判断拆成可查的条目，机器管数字，人管解释，审稿速度和命中率都能提上来。">
+<link rel="canonical" href="https://zbjh.top/skill/chapter-audit.html">
+<meta property="og:title" content="审稿别靠人眼：把&quot;这章不行&quot;变成一张检查表 · 网文写作智库">
+<meta property="og:description" content="写完一章，只觉得&quot;没劲&quot;，却说不出问题在哪——这是最耗人的状态。把主观判断拆成可查的条目，机器管数字，人管解释，审稿速度和命中率都能提上来。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="执笔惊鸿">
+<link rel="stylesheet" href="/assets/style.css">
+
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="/"><span class="seal">笔</span><span>执笔惊鸿<small style="margin-left:6px">网文写作智库</small></span></a>
+  <nav class="nav"><a href="/">首页</a><a href="/guide/">新手入门</a><a href="/skill/" class="on">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a><a href="/tools/">实用工具</a></nav>
+</div></header>
+<div class="wrap"><article class="article">
+  <div class="crumb"><a href="/">首页</a> / <a href="/skill/">写作技法</a></div>
+  <h1>审稿别靠人眼：把&quot;这章不行&quot;变成一张检查表</h1>
+  <div class="ameta"><span>2026-10-11</span><span>约 2151 字</span><span style="margin-left:auto"><span class="tag">审稿</span><span class="tag">检查表</span><span class="tag">平台口味</span><span class="tag">追读</span></span></div>
+  <p class="lead">自己写的东西自己审，是最难的活。判断很容易，说清楚很难：你知道这章不行，但「不行」是个结论，不是原因。改起来就变成了到处试——换个开头、加段打斗、把对话改得俏皮点，改完还是别扭。</p>
+<p>职业编辑的做法不一样。他们把「行不行」拆成一串可以逐条打勾的问题，先查确定的部分，再谈感觉。这套方法现在已经被工具化了，GitHub 上几个项目在这方面想得很清楚。</p>
+<h2 id="_1">第一层：机器管数字，不要人看</h2>
+<p>这一层的原则是：<strong>凡是能用数字回答的，不要用眼睛判断。</strong></p>
+<p><a href="https://github.com/huangziyuan-general/dsh-novel-forge">小说锻炉</a> 的做法值得抄。它给正文设了一道机审，条目全是确定性的：</p>
+<ul>
+<li><strong>字数是否在区间</strong>。网文连载单章默认 2000 到 4000 字，目标 3000。低于两千读起来像"没写完"，超过四千掉追读。</li>
+<li><strong>与前文重复检测</strong>。用「八字片段」滑动比对——把本章的每个八字片段拿去和前面几章比，超过阈值直接拒绝保存。这条专治跨章复读，也就是"上一章好像写过这段"。</li>
+<li><strong>章末钩子启发式</strong>。检查结尾有没有问句、悬念、省略或感叹。缺了不算错，但给一个警告。</li>
+<li><strong>段落长度分布</strong>。手机上每段超过四五行就开始劝退，段长方差太小又说明整章节奏是平的。</li>
+</ul>
+<p>这些都不需要模型参与，一个脚本或一张嘴就能数。它们的价值在于<strong>把最容易抓的问题先清掉</strong>，让你把注意力留给真正的难点。</p>
+<h2 id="_2">第二层：结构检查，问六个问题</h2>
+<p>数字过关之后，问这六个问题。它们无法用机器回答，但可以逐条打勾：</p>
+<ol>
+<li><strong>本章的目标达成了吗？</strong> 这一章开始时主角想做什么，结束时做成了没有、或者变成了什么新问题。</li>
+<li><strong>冲突推进了吗？</strong> 不管是外部对手还是内部挣扎，这一章之后局面相比开头必须有变化。没变化的就是水章。</li>
+<li><strong>出场人物都有事做吗？</strong> 本章出场的角色，是否每人至少有一件与情节相关的动作。只负责站着看的角色，该删。</li>
+<li><strong>有没有动了一条伏笔？</strong> 要么收一条旧的，要么埋一条新的。一整章不动伏笔，读者会觉得在绕圈。</li>
+<li><strong>信息给了多少？</strong> 本章让读者新知道了哪几件事。太少显得拖，太多会冲淡重点。</li>
+<li><strong>章末留下的是什么？</strong> 是悬念、是情绪、还是一个明确的期待。三个至少要有一个。</li>
+</ol>
+<p>这六个问题里，<strong>第二个和第六个最关键</strong>。很多"感觉没劲"的章节，问题都出在这两条上——不是写得不好，是这一章之后世界没有任何变化，读者没有理由翻下一章。</p>
+<h2 id="_3">第三层：平台口味不一样，别用错表</h2>
+<p>同一章放在不同平台，评价可能完全相反。两个主流免费阅读平台看的东西不一样：</p>
+<p><strong>番茄这类免费平台，看前一千字。</strong> 读者是滑进来的，前一千字决定留不留。所以检查重点是：爽点来得够不够早、有没有憋屈感、憋屈持续了多久。<strong>憋屈本身不是问题，"憋屈得太久"才是。</strong> 一章之内该给的兑现没给，读者就走了。</p>
+<p><strong>起点这类付费平台，看结构与章末。</strong> 读者已经付费进来，容忍度更高，但更在意节奏结构和章末钩子。另外要注意<strong>移动端段长</strong>——同样的文字，屏幕上每段超长会显著降低阅读体验。</p>
+<p><a href="https://github.com/huangziyuan-general/dsh-novel-forge">小说锻炉</a> 直接做了两张审稿表，对应这两种口味。你不必装它，但可以记下这个判断：<strong>审稿前先问一句，这章是给谁看的。</strong> 用错表比不审更糟。</p>
+<h2 id="_4">一条容易被忽略的纪律：机审和模型审要分开</h2>
+<p>这是所有做法里最重要的一条。</p>
+<p><strong>机器给数字，模型给解释。</strong> 不要让同一套东西既算数字又下结论——那等于自己批改自己的卷子。做法是：先用确定性检查拿到客观事实（字数、重复率、段长分布），再让模型基于这些事实给出意见，而且<strong>意见必须引用证据</strong>：指出是哪一句、哪一段、违反了哪条。</p>
+<p>没有证据支撑的「建议加强人物刻画」是废话，它跟"这章不行"一样无从下手。有证据的版本是这样的：「第 9 段到第 12 段连续四段超过六行，手机端阅读会累；第 15 段与第 8 段的场景描写重复了三次相同的动作」。</p>
+<p>后者才改得动。</p>
+<h2 id="_5">一个可以贴在桌边的章末自检表</h2>
+<p>写完一章，照着念一遍，三十秒：</p>
+<ul>
+<li>字数落在两千到四千之间了吗</li>
+<li>结尾那句，能不能让人想翻下一页</li>
+<li>这一章结束，局面和开头比，变了什么</li>
+<li>主角这一章有没有一次选择（不是被动挨打）</li>
+<li>有没有一条伏笔动了</li>
+<li>有没有一段是"上一章好像写过"</li>
+<li>手机上看，有没有超过六行的段落</li>
+</ul>
+<p>七条里过不了三条以上，别急着开下一章。<strong>省下的不是这一章的时间，是后面十章的返工。</strong></p>
+<h2 id="_6">写到后面写不动的时候</h2>
+<p>还有一层检查是给整本书的：写到五十章左右，数据开始不动了，问题通常不在最新一章，而在十几章之前的某处埋了雷——节奏拖了、冲突断了、或者某个角色被写废了。<a href="https://github.com/myyimu/ai-novel-diagnosis">AI 网文诊断台</a> 就是冲着这个去的：解析全文、生成人物关系图谱、诊断读者流失位置。思路是对的——<strong>别只看最新一章，要看读者在哪一章开始不看的。</strong></p>
+<p>工具会把范围缩小，但最后仍然要你自己读那几章，找出那个"不对劲但说不上来"的地方。这也是为什么前面那些检查表要提前建：<strong>到了要救火的时候，你手上有一份从第一章到现在的完整记录，判断出事发点会快得多。</strong></p>
+</article></div>
+<footer class="site-foot"><div class="wrap">
+  <div class="cols">
+    <div>
+      <b>执笔惊鸿 · 网文写作智库</b>
+      <p style="margin:0;line-height:1.8">写给网文作者的写作智库：从开书、黄金三章到大纲、爽点、钩子与连载中期救火，外加 AI 写作实操与全网工具，附可直接使用的免费在线工具。</p>
+    </div>
+    <div><b>栏目</b><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a></div>
+    <div><b>工具与信息</b>
+      <a href="/tools/ai-flavor.html">AI 味检测器</a>
+      <a href="/tools/cheatsheet.html">平台规则速查</a>
+      <a href="/oss/">开源工具导航</a>
+      <a href="/about.html">关于本站</a>
+      <a href="/sitemap.xml">站点地图</a>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 执笔惊鸿</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">备案号 苏ICP备2026033843号-1</a>
+    <span style="margin-left:auto;color:#a49c8e">内容为写作经验分享，不构成平台官方承诺，规则以各平台后台为准。</span>
+  </div>
+</div></footer>
+</body>
+</html>

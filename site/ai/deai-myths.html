@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>这些&quot;AI 味&quot;其实不是 AI 味 · 网文写作智库</title>
+<meta name="description" content="句长太整齐、有被动句、爱用排比、正文里写&quot;首先其次&quot;——这些常被当成 AI 痕迹的写法，实测下来跟人类写作没差别。真正该改的是另一批东西，它们有可定位的标记。">
+<link rel="canonical" href="https://zbjh.top/ai/deai-myths.html">
+<meta property="og:title" content="这些&quot;AI 味&quot;其实不是 AI 味 · 网文写作智库">
+<meta property="og:description" content="句长太整齐、有被动句、爱用排比、正文里写&quot;首先其次&quot;——这些常被当成 AI 痕迹的写法，实测下来跟人类写作没差别。真正该改的是另一批东西，它们有可定位的标记。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="执笔惊鸿">
+<link rel="stylesheet" href="/assets/style.css">
+
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="/"><span class="seal">笔</span><span>执笔惊鸿<small style="margin-left:6px">网文写作智库</small></span></a>
+  <nav class="nav"><a href="/">首页</a><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/" class="on">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a><a href="/tools/">实用工具</a></nav>
+</div></header>
+<div class="wrap"><article class="article">
+  <div class="crumb"><a href="/">首页</a> / <a href="/ai/">AI 写作</a></div>
+  <h1>这些&quot;AI 味&quot;其实不是 AI 味</h1>
+  <div class="ameta"><span>2026-10-11</span><span>约 2268 字</span><span style="margin-left:auto"><span class="tag">去AI味</span><span class="tag">实测</span><span class="tag">改写规则</span><span class="tag">反常识</span></span></div>
+  <p class="lead">把稿子交给 AI 去 AI 味，改完读一遍，往往更假了。原因通常不是 AI 改得不好，而是<strong>指令本身错了</strong>——你让它去掉的那些特征，本来就不是 AI 的特征。</p>
+<p>网上流传的「AI 味清单」大多靠感觉归纳：句子太整齐像 AI、段落长度太均匀像 AI、用被动句像 AI、爱用排比像 AI。这些话听着有道理，但有人较真去数过，结论是相反的。</p>
+<h2 id="_1">一份被实测推翻的清单</h2>
+<p>GitHub 上有个项目叫 <a href="https://github.com/larashero3-dotcom/lieflat-less-ai-tone">lieflat-less-ai-tone</a>（2664 星），做法与众不同：它不按「像不像」立规矩，而是拿人类文章与多个模型的输出做语料对比，只保留<strong>实测有差异、且差异有触发标记可定位</strong>的规则。它专门列了一张「不作为改写理由」表，逐条推翻流行说法：</p>
+<table>
+<thead>
+<tr>
+<th>流行说法</th>
+<th>实测结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>句长、段落长度不够参差，就是 AI</td>
+<td>与人类写作无差别。不要为了制造节奏去调句长、拆段落</td>
+</tr>
+<tr>
+<td>单字虚词偏少（就、很、了）</td>
+<td>AI 确实偏少，但方向是<strong>补</strong>不是删；而且补虚词无法验收，容易把正式文章改成口语</td>
+</tr>
+<tr>
+<td>反复写全称、少用代词</td>
+<td>实测人类比 AI 更常重复同一名词</td>
+</tr>
+<tr>
+<td>被动句多</td>
+<td>抽象被动（被认为、被视为）远低于收录门槛</td>
+</tr>
+<tr>
+<td>名词化、长句本身</td>
+<td>现代汉语书面语的正常写法，人类同样这么用</td>
+</tr>
+<tr>
+<td>正文里写「首先……其次」</td>
+<td>与人类写作无差别</td>
+</tr>
+<tr>
+<td>句内同构排比（提升效率，降低成本，优化体验）</td>
+<td>人类用得不比 AI 少</td>
+</tr>
+<tr>
+<td>问句、设问、问句小标题</td>
+<td>正文问句人类远多于 AI，删掉反而更不像人写</td>
+</tr>
+<tr>
+<td>比喻本身、比喻独立成段</td>
+<td>人类用得比 AI 多</td>
+</tr>
+</tbody>
+</table>
+<p>同一个项目还纠正了另一个流行错觉：<strong>「一段里恰好凑三个案例」是 AI 特征</strong>。实测在已含案例的段落里，三案例占比 AI 是 0.6%、人类 0.5%，没有差别。真正有差别的是「案例句密度」——AI 是人类的 3 到 4 倍，但差距来自数量，不是「凑三」。</p>
+<p>这些结论未必是终审，但它们至少说明一件事：<strong>「读起来像 AI」和「实测是 AI」是两回事。</strong> 按感觉改稿，很容易把人类本来的写法当成机器腔删掉，越改越空。</p>
+<h2 id="_2">真正该改的那一批</h2>
+<p>那么哪些特征是真有差异、且能定位的？同一份清单里给了四条，都带实测倍率：</p>
+<p><strong>一、翻案腔。</strong> 先立一个读者并没有的误解，再把它推翻。「不是技术问题，而是认知问题」「与其说……不如说……」「表面……实际……」「你以为……其实……」。这类句式换个字面还是同一个动作，要整族一起改。</p>
+<p>改法是从正面下判断，先给判断再给依据：</p>
+<ul>
+<li>改前：真正的壁垒不是技术，而是认知。</li>
+<li>改后：真正的壁垒是认知。</li>
+</ul>
+<p><strong>二、顿号罗列过密。</strong> 用顿号串起三项以上并列，一句塞进一整份清单。实测 AI 每千字 3.21 处，人类 1.78 处。能概括就别逐项列；必须保留三项以上，就把其中一项换掉句法，不让它们排成同一结构。</p>
+<ul>
+<li>改前：采集、存储、展示。</li>
+<li>改后：从采集到展示。</li>
+</ul>
+<p><strong>三、相邻句结构同款。</strong> 连着几句用同一个骨架，逗号位置一样、成分顺序一样、收尾方式一样。单看每句都通顺，连起来像填表。实测 AI 每百段 9.41 处「连续两句同款」，人类 4.81 处；连续三句同款 AI 0.84、人类 0.41——都是两倍左右，而且在人类语料内部很稳定，不是体裁造成的。</p>
+<p><strong>四、破折号滥用。</strong> 这一条要小心：不同模型差距极大，有模型用得是人类的五倍，另一些几乎不用。所以不能按「某个模型的味」去套，只按原文自己数。</p>
+<p>另有一类是<strong>价值上升词与解说导引句</strong>：「值得注意的是」「不可否认」「从某种意义上说」。这类词本身不错，问题是密度——它们只负责强调，没有新增信息。</p>
+<h2 id="_3">两条判断原则</h2>
+<p><strong>第一，按触发标记改，不按感觉改。</strong> 触发标记的意思是：你能指出是哪个字、哪个结构触发的这条规则。指不出来，就别动。含糊的「这段读着有点 AI」不是修改理由，是审美偏好。</p>
+<p><strong>第二，要么改对，要么不改。</strong> 这是 <a href="https://github.com/MrGeDiao/shuorenhua">说人话</a>（2051 星）的立场：默认改写要保守，清理赘语和句法，保留背景、定位、程度与作者评价；不需要修改时返回原文。它把「正常文字误改率低于 10%」写成了发布门槛。宁可少改，不可改坏——这句在改稿上是硬道理。</p>
+<h2 id="_4">一个简单的自查法</h2>
+<p>真要自己动手，不必背规则表。做三件事就够：</p>
+<ol>
+<li><strong>数一遍</strong>。同一章里，「不是……而是……」「值得注意的是」出现几次？出现两次以上就值得处理。一次通常不算问题。</li>
+<li><strong>看相邻句</strong>。连着三四句是不是同一个骨架，逗号都落在同一个位置。是，就把其中一句合并、拆开或换语序。</li>
+<li><strong>对照自己的旧稿</strong>。把三年前自己写的、那时还没有 AI 的稿子拿出来，扫一遍上面那些「AI 特征」——你会发现它们在你身上一样多。<strong>你的文风不是 AI 味。</strong></li>
+</ol>
+<h2 id="_5">不过，最省事的办法是不写出来</h2>
+<p>最后说句实话：去 AI 味本质上是在<strong>补</strong>——先把稿子写成机器腔，再花力气洗回来。真正省力的路径是让初稿本身就没那么多可清的痕迹。</p>
+<p>同一批项目在这点上也一致：<strong>先保住事实，再清掉 AI 味，最后才加人味。</strong> 顺序反了，就会出现在一堆漂亮句子里找不到作者的情况。改稿是减法，写作那一步才是加法。</p>
+<p>本站的 <a href="/tools/ai-flavor.html">AI 味检测器</a> 按这套判据做了初筛：它会标出高频词、套路句式、重复词与标点密度，给出分数。但要记住它的定位是<strong>筛查清单，不是判决书</strong>——分数低只说明有机器腔的痕迹，不代表稿子不好；而分数高的地方，最终该不该改，仍然要你自己看上下文决定。</p>
+</article></div>
+<footer class="site-foot"><div class="wrap">
+  <div class="cols">
+    <div>
+      <b>执笔惊鸿 · 网文写作智库</b>
+      <p style="margin:0;line-height:1.8">写给网文作者的写作智库：从开书、黄金三章到大纲、爽点、钩子与连载中期救火，外加 AI 写作实操与全网工具，附可直接使用的免费在线工具。</p>
+    </div>
+    <div><b>栏目</b><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a></div>
+    <div><b>工具与信息</b>
+      <a href="/tools/ai-flavor.html">AI 味检测器</a>
+      <a href="/tools/cheatsheet.html">平台规则速查</a>
+      <a href="/oss/">开源工具导航</a>
+      <a href="/about.html">关于本站</a>
+      <a href="/sitemap.xml">站点地图</a>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 执笔惊鸿</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">备案号 苏ICP备2026033843号-1</a>
+    <span style="margin-left:auto;color:#a49c8e">内容为写作经验分享，不构成平台官方承诺，规则以各平台后台为准。</span>
+  </div>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>每章该喂给 AI 什么：一份上下文清单 · 网文写作智库</title>
+<meta name="description" content="只写一句&quot;继续写&quot;它乱跑，把全书设定都塞进去它反而抓不住重点。长篇用 AI 的成败，多半不在提示词写得多漂亮，而在每章开工前那份&quot;简报&quot;里放了什么。">
+<link rel="canonical" href="https://zbjh.top/ai/context-package.html">
+<meta property="og:title" content="每章该喂给 AI 什么：一份上下文清单 · 网文写作智库">
+<meta property="og:description" content="只写一句&quot;继续写&quot;它乱跑，把全书设定都塞进去它反而抓不住重点。长篇用 AI 的成败，多半不在提示词写得多漂亮，而在每章开工前那份&quot;简报&quot;里放了什么。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="执笔惊鸿">
+<link rel="stylesheet" href="/assets/style.css">
+
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="/"><span class="seal">笔</span><span>执笔惊鸿<small style="margin-left:6px">网文写作智库</small></span></a>
+  <nav class="nav"><a href="/">首页</a><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/" class="on">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a><a href="/tools/">实用工具</a></nav>
+</div></header>
+<div class="wrap"><article class="article">
+  <div class="crumb"><a href="/">首页</a> / <a href="/ai/">AI 写作</a></div>
+  <h1>每章该喂给 AI 什么：一份上下文清单</h1>
+  <div class="ameta"><span>2026-10-11</span><span>约 2401 字</span><span style="margin-left:auto"><span class="tag">提示词</span><span class="tag">上下文</span><span class="tag">写前简报</span><span class="tag">长篇</span></span></div>
+  <p class="lead">用 AI 写长篇的人，很快会撞到两个相反的坑。</p>
+<p>第一种是喂太少：丢一句「继续写下一章」，它就自由发挥——地点跳到别处，人物性格换了个样，上一章刚死的人又出现。第二种是喂太多：把世界观、全书大纲、所有人物卡、前十章原文统统塞进去，结果它反而抓不住重点，写出来四平八稳、每个设定都提一句、谁也不推进。</p>
+<p>两个坑的解法不是同一个：前者要加，后者要减。但方向是一致的——<strong>不是"给得多"，而是"给得准"。</strong></p>
+<h2 id="_1">先看别人怎么配这份"简报"</h2>
+<p>GitHub 上做长篇工具的项目，几乎都有一步专门的动作叫「写前简报」或「上下文打包」。它们的目标一致：在这一章开工之前，组装一份只服务这一章的材料包。</p>
+<p><a href="https://github.com/huangziyuan-general/dsh-novel-forge">小说锻炉</a> 的组装顺序是固定的六层：</p>
+<pre><code>细纲 → 人物卡 → 事实账本 → 伏笔 → 世界书 → 上一章结尾
+</code></pre>
+<p><a href="https://github.com/zy-zmc/tianming-novel-ai-writer">天命</a> 的「数据中心打包」列了十二项，其中真正每章必给的是这几样：本章的大纲与蓝图、出场角色的规则、十五维事实快照、前章摘要链、上一章尾段原文、按相关性召回的历史片段。它特意标注了一件事——<strong>AI 只看本章相关数据</strong>。</p>
+<p><a href="https://github.com/zenstory-ai/oh-story-claudecode">Oh Story</a> 走得更极端：它的续写状态卡固定七栏、硬上限 12KB，而且这份文件<strong>不进正文的提示词</strong>，是给人看的对照，写正文时另取所需。</p>
+<p>细致程度不同，但这几家的清单高度重合。把重合的部分抽出来，就是一份可以直接抄的模板。</p>
+<h2 id="_2">一份可照抄的六段清单</h2>
+<p><strong>第一段：本章要发生什么（细纲）。</strong> 两三句话，写清场景、出场人物、这一章结束时局面相比开头发生了什么变化。这一段是主心骨，缺了它，后面五段都只是背景资料。</p>
+<p><strong>第二段：出场人物的当下卡片。</strong> 注意是<strong>出场人物</strong>，不是全部人物。每张卡只保留与本章相关的部分：他现在的能力与状态、他想要什么、他与在场其他人的关系与态度。</p>
+<p>这里有个常被忽略的细节：<strong>角色关系是有方向的。</strong> 甲对乙的态度，和乙对甲的态度，经常不是一回事。用一个「甲→乙」的箭头分别记，比写一段「两人关系复杂」有用得多。</p>
+<p><strong>第三段：与本章相关的事实条目。</strong> 从你的状态卡或事实账本里，只挑这一章要用到的：某地现在是什么状况、某物在谁手上、谁还不知道某个秘密、哪个承诺快到期限了。上一章刚改过的值，这一章必须读最新的。</p>
+<p><strong>第四段：活跃伏笔。</strong> 分两类列出：该收的（埋了很久、时间到了）和可埋的（这一章的场合适合埋一条新的）。每条只写编号、一句话内容、埋在哪一章。别写解释，写解释会让 AI 急着往回收。</p>
+<p><strong>第五段：世界观硬约束。</strong> 只列<strong>不可违反</strong>的规则——这个世界的物理规律、力量体系的边界、题旨上的禁忌。不列一般设定。这一段的用途是兜底：万一前面的信息有冲突，以这里为准。</p>
+<p><strong>第六段：上一章的尾段原文。</strong> 直接给原文，不要给摘要。衔接看的是语气、节奏和画面，摘要会把这些全丢掉。长度控制在几百字即可。</p>
+<h2 id="_3">三条比清单更重要的原则</h2>
+<p><strong>一、按需注入，标准是"这一章用不用得上"。</strong> 全部塞进去的代价不是超窗，而是<strong>注意力被稀释</strong>。当模型面前有五十条设定，它无法判断哪三条是这一章的重点，最省事的做法就是每条都提一句，于是每一段都成了背景介绍。写得平，常常不是它没能力，是你没告诉它重点在哪。</p>
+<p><strong>二、要有预算意识。</strong> <a href="https://github.com/GLFzr/QianBi-Novel">千笔一文</a> 在这点上说得最清楚：设定按条目登记、按锚点激活、按预算注入。它承认一个现实——长设定在几百章后必然被截断，与其被动截断，不如主动挑选。你可以给自己定个土规矩：<strong>写前简报控制在一千五百字以内</strong>，超了就砍，先砍一般设定，再砍次要人物。</p>
+<p><strong>三、区分「作者真相」与「读者已知」。</strong> 这是 Oh Story 最值钱的一个设计。你作为作者知道谁是卧底，但读者还不知道——这两件事必须分开记，而且<strong>写正文时只让 AI 用"读者已知"那一栏</strong>。混在一起，它就会写出角色莫名其妙地提前警觉、或者对话里泄露了本该藏到最后的底牌。</p>
+<h2 id="_4">把回写也定成规矩</h2>
+<p>清单是发给 AI 的，但闭环的另一半在你这边：每章写完，要让 AI 交回一份「本章变更」——谁的状态变了、伏笔动了哪条、哪条冲突推进了、谁移动到了哪里。</p>
+<p>这份变更不必长，几行就够。它的唯一用途是更新你的第三段和第四段，供下一章读取。<strong>少了这一步，写前简报再精也只是一次性的</strong>，因为下一章读到的还是旧状态。</p>
+<p><a href="https://github.com/huangziyuan-general/dsh-novel-forge">小说锻炉</a> 甚至给这一步加了强制：正文必须带 <code>---CHANGES---</code> 分隔符和完整变更声明，字段缺失直接打回重写。对个人作者，用不着这么硬，但「写完必回写」这条纪律不能省。</p>
+<h2 id="_5">一个可以马上试的小实验</h2>
+<p>挑你手上一章还没写的正文，按六段清单写一份简报，其中只有第二到第五段是新增工作量——你从大纲、人物小传、设定里各摘几条就行。然后用同一段细纲、同一个模型，分别跑两次：一次只给细纲，一次给完整六段。对比两版。</p>
+<p>差异通常出现在三个地方：人物说话的口气是否稳定、场景里的道具与位置是否对得上、章末有没有自然地把伏笔往前推一点。这三样正是长篇最难靠灵感维持的东西。</p>
+<p>如果你还没建状态卡，可以先从最省的一步开始：<a href="/ai/long-novel-state.html">上篇</a>里那张「三件事」清单，或者直接用本站的 <a href="/tools/ai-flavor.html">AI 味检测器</a> 主页面之外的思路——<strong>先手写一份六段简报，写十章，再决定要不要上工具。</strong></p>
+</article></div>
+<footer class="site-foot"><div class="wrap">
+  <div class="cols">
+    <div>
+      <b>执笔惊鸿 · 网文写作智库</b>
+      <p style="margin:0;line-height:1.8">写给网文作者的写作智库：从开书、黄金三章到大纲、爽点、钩子与连载中期救火，外加 AI 写作实操与全网工具，附可直接使用的免费在线工具。</p>
+    </div>
+    <div><b>栏目</b><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a></div>
+    <div><b>工具与信息</b>
+      <a href="/tools/ai-flavor.html">AI 味检测器</a>
+      <a href="/tools/cheatsheet.html">平台规则速查</a>
+      <a href="/oss/">开源工具导航</a>
+      <a href="/about.html">关于本站</a>
+      <a href="/sitemap.xml">站点地图</a>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 执笔惊鸿</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">备案号 苏ICP备2026033843号-1</a>
+    <span style="margin-left:auto;color:#a49c8e">内容为写作经验分享，不构成平台官方承诺，规则以各平台后台为准。</span>
+  </div>
+</div></footer>
+</body>
+</html>

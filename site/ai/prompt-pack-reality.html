@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>现成的提示词包，为什么到你手上就不好使 · 网文写作智库</title>
+<meta name="description" content="GitHub 上写小说、去 AI 味的提示词仓库动辄几百星，但真拿来自用，多半跑两次就丢了。本文拆解提示词包失效的三个原因，并从几个做得好的项目里提炼出「能用的提示词」共有的三个特征。">
+<link rel="canonical" href="https://zbjh.top/ai/prompt-pack-reality.html">
+<meta property="og:title" content="现成的提示词包，为什么到你手上就不好使 · 网文写作智库">
+<meta property="og:description" content="GitHub 上写小说、去 AI 味的提示词仓库动辄几百星，但真拿来自用，多半跑两次就丢了。本文拆解提示词包失效的三个原因，并从几个做得好的项目里提炼出「能用的提示词」共有的三个特征。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="执笔惊鸿">
+<link rel="stylesheet" href="/assets/style.css">
+
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="/"><span class="seal">笔</span><span>执笔惊鸿<small style="margin-left:6px">网文写作智库</small></span></a>
+  <nav class="nav"><a href="/">首页</a><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/" class="on">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a><a href="/tools/">实用工具</a></nav>
+</div></header>
+<div class="wrap"><article class="article">
+  <div class="crumb"><a href="/">首页</a> / <a href="/ai/">AI 写作</a></div>
+  <h1>现成的提示词包，为什么到你手上就不好使</h1>
+  <div class="ameta"><span>2026-10-11</span><span>约 1926 字</span><span style="margin-left:auto"><span class="tag">提示词</span><span class="tag">Skill</span><span class="tag">去AI味</span><span class="tag">工作流</span></span></div>
+  <p class="lead">「提示词」这三个字，在网文写作这个场景里已经被用烂了。GitHub 上搜一圈：写小说的提示词集、去 AI 味的规则集、多平台改写的模板包，动辄几百上千颗星。</p>
+<p>但把它拿下来自己用，通常撑不过三次。<strong>不是你不会用，是多数提示词包的设计前提就错了。</strong></p>
+<h2 id="_1">一、第一个死因：太长，全部变钝</h2>
+<p>一个提示词包最容易犯的错，是把它做得「全面」。<strong>人物设定、大纲、章节、对话、描写、去 AI 味、多平台改写……</strong> 全塞进同一个文件，指望一个提示词管完所有事。</p>
+<p>这个思路有项目已经点破了。中文网文写作技能集里有一句原话：</p>
+<blockquote>
+<p>一个巨型提示词什么都管，最后会全部变钝。</p>
+</blockquote>
+<p>道理不难懂：模型对指令的注意力是有限的，<strong>当天花板被几十条规则挤满，每一条都只分到一点点</strong>。规则写得越多，执行得越松——这跟我们给人下指令是一样的，一次交代二十件事，最后八件会被忘掉。</p>
+<h2 id="_2">二、第二个死因：太泛，没有边界</h2>
+<p>第二类失败是「说了等于没说」。</p>
+<p>「要写出人物的性格」「要有画面感」「要代入感强」——这些话没错，但<strong>它们不构成指令，因为没有边界</strong>。什么样的描写算有画面感？写到什么程度算够？模型无法判断，只能猜。猜出来的结果，就是那些似曾相识的套话。</p>
+<p>对比一个做得好的例子。有个自然写作技能，把去 AI 味拆成了<strong>两组独立的参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数组</th>
+<th>取值</th>
+<th>管什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>修改力度</td>
+<td>轻 / 标准 / 强</td>
+<td>改多重</td>
+</tr>
+<tr>
+<td>结构范围</td>
+<td>原地 / 局部 / 重构</td>
+<td>能动哪里</td>
+</tr>
+</tbody>
+</table>
+<p>「修改力度决定改多重，结构范围决定能动哪里，两者互相独立。」——就这么两句话，去 AI 味从「一锅端」变成了<strong>可指定的操作</strong>。你要轻度润色一份敏感文本，就选「轻 + 原地」；你要重写一段模板腔的初稿，就选「强 + 局部」。</p>
+<p><strong>边界一旦明确，结果才可预期。</strong></p>
+<h2 id="_3">三、第三个死因：不可复现</h2>
+<p>第三类最隐蔽：<strong>这些提示词只在聊天框里好使。</strong></p>
+<p>在对话框里跟模型你一句我一句，觉得效果不错。可等你明天再写一章，用同样的提示词，结果差得很远——因为聊天是连续的，模型记着上文；而每次新开的会话，它什么都不记得。</p>
+<p>所以有项目干脆把润色从聊天里抠出来，<strong>做成一个可重复运行的脚本</strong>。同一段文字跑两遍，结果稳定。这看起来是小事，其实是分界线：</p>
+<ul>
+<li>聊天靠手感，<strong>脚本靠复现</strong>。</li>
+<li>手感不可积累，复现才能积累。</li>
+<li>一份流程跑十次结果一致，才谈得上「质量可控」。</li>
+</ul>
+<h2 id="_4">四、能用的提示词，都有这三个特征</h2>
+<p>把上面的教训反过来看，就是挑选提示词包的标准。</p>
+<p><strong>特征一：短。</strong> 有个中文去 AI 味的项目把设计原则写在明面上：</p>
+<blockquote>
+<p>提示词也有成本，规则越短，占用的 token 越少，也越容易维护。这个项目只保留能稳定复现、能直接改写的特征。</p>
+</blockquote>
+<p>这句话里有两个标准值得抄下来：<strong>能稳定复现</strong>（换一段文字，同一个特征还出现）、<strong>能直接改写</strong>（看得出毛病，也知道怎么改）。不合这两条的，写进去只是噪音。</p>
+<p><strong>特征二：参数化，不写死。</strong> 与其写「把文字改得自然一点」，不如给出「力度」和「范围」两个旋钮。同一个包，不同场合拧不同档——这才叫工具，否则只是一段范文。</p>
+<p><strong>特征三：带门禁。</strong> 光有「怎么写」不够，还要有「什么时候算过关」。有一个小说写作技能库，把整个流程拆成「蒸馏 → 构思 → 章节执行 → 修订质控 → 多平台输出」五段，每一段结束都有检查环节，<strong>门禁不过不往下走</strong>。</p>
+<p>这个结构最值得学的一点，是它开头的「<strong>蒸馏</strong>」：先从作者自己的文风、成功作品的架构、题材研究报告里提炼出三份模板（风格模板、蓝本模板、约束基线），后面的写、审、改全部自动消费这三份模板。</p>
+<p>也就是说，<strong>它不指望提示词替你定义标准，而是逼你先把自己的标准写下来。</strong> 这一步做完，提示词才有依据——否则再怎么调，调的都是别人的口味。</p>
+<h2 id="_5">五、还有一个容易被忽略的事实</h2>
+<p>提示词要分场景。搜到的大部分「AI 写作提示词」其实是学术论文向的——论文构思、文献综述、格式校对。这类提示词拿到网文创作里，一句都用不上。</p>
+<p>这不是质量问题，是<strong>场景错配</strong>。所以你收藏提示词包之前，先问一句：它是为谁写的？为学术？为公文？为英文写作？如果目标场景跟你不一致，星数再高也别抄。</p>
+<h2 id="_6">六、落到操作上</h2>
+<p>如果你现在手上就有一堆提示词包，按这个顺序处理：</p>
+<ol>
+<li><strong>砍</strong>：把「全面型」提示词拆成小份，一份只干一件事。</li>
+<li><strong>定</strong>：每份补上边界和参数（力度、范围、字数、必须保留什么）。</li>
+<li><strong>锁</strong>：把关键的几步从聊天改成固定流程，能复现的才算你的。</li>
+<li><strong>禁</strong>：写清「不许做什么」——不许改数据、不许加错别字充人味、不许编造经历。负向清单往往比正向清单更管用。</li>
+</ol>
+<p><strong>提示词不是越多越好，是越准越好。</strong> 一份能稳定执行五条规则的提示词，抵得过一份写了五十条但你从来不知道它执行了几条的。</p>
+</article></div>
+<footer class="site-foot"><div class="wrap">
+  <div class="cols">
+    <div>
+      <b>执笔惊鸿 · 网文写作智库</b>
+      <p style="margin:0;line-height:1.8">写给网文作者的写作智库：从开书、黄金三章到大纲、爽点、钩子与连载中期救火，外加 AI 写作实操与全网工具，附可直接使用的免费在线工具。</p>
+    </div>
+    <div><b>栏目</b><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a></div>
+    <div><b>工具与信息</b>
+      <a href="/tools/ai-flavor.html">AI 味检测器</a>
+      <a href="/tools/cheatsheet.html">平台规则速查</a>
+      <a href="/oss/">开源工具导航</a>
+      <a href="/about.html">关于本站</a>
+      <a href="/sitemap.xml">站点地图</a>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 执笔惊鸿</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">备案号 苏ICP备2026033843号-1</a>
+    <span style="margin-left:auto;color:#a49c8e">内容为写作经验分享，不构成平台官方承诺，规则以各平台后台为准。</span>
+  </div>
+</div></footer>
+</body>
+</html>

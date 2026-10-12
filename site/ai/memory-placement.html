@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>记忆放在哪：文件、知识图谱，还是数据库 · 网文写作智库</title>
+<meta name="description" content="长篇写作要把状态外置，但外置到哪里，各家做法完全不同：有人用一份 12KB 的 Markdown，有人搭一整套 Neo4j 知识图谱，有人塞进向量索引。本文把三条路线的形状、代价与适用场景摆在一起，给出一张选型表。">
+<link rel="canonical" href="https://zbjh.top/ai/memory-placement.html">
+<meta property="og:title" content="记忆放在哪：文件、知识图谱，还是数据库 · 网文写作智库">
+<meta property="og:description" content="长篇写作要把状态外置，但外置到哪里，各家做法完全不同：有人用一份 12KB 的 Markdown，有人搭一整套 Neo4j 知识图谱，有人塞进向量索引。本文把三条路线的形状、代价与适用场景摆在一起，给出一张选型表。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="执笔惊鸿">
+<link rel="stylesheet" href="/assets/style.css">
+
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="/"><span class="seal">笔</span><span>执笔惊鸿<small style="margin-left:6px">网文写作智库</small></span></a>
+  <nav class="nav"><a href="/">首页</a><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/" class="on">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a><a href="/tools/">实用工具</a></nav>
+</div></header>
+<div class="wrap"><article class="article">
+  <div class="crumb"><a href="/">首页</a> / <a href="/ai/">AI 写作</a></div>
+  <h1>记忆放在哪：文件、知识图谱，还是数据库</h1>
+  <div class="ameta"><span>2026-10-11</span><span>约 1948 字</span><span style="margin-left:auto"><span class="tag">状态外置</span><span class="tag">知识图谱</span><span class="tag">向量检索</span><span class="tag">记忆管理</span></span></div>
+  <p class="lead">上一篇讲清了「长篇为什么会崩」：状态必须外置。但外置到哪里，这件事本身有分歧——而且分歧比方法本身更大。</p>
+<p>有人把全部状态压进<strong>一份 12KB 的 Markdown</strong>，有人为此<strong>搭一整套 Neo4j 知识图谱</strong>，还有人干脆把记忆<strong>塞进向量索引</strong>。三种做法都在生产环境里跑着，都有人用。</p>
+<p>选错介质，代价不是「慢一点」，是<strong>写了两百章以后想改都改不动</strong>。</p>
+<h2 id="_1">一、三条路线，三种「形状」</h2>
+<p><strong>文件派：一切压成可读文本。</strong> 代表是 Oh Story——维护一份固定七栏、硬上限 12KB 的上下文文件，写下一章前只读这一份，且这份文件不进正文提示词。</p>
+<p>它的好处极其明显：<strong>人可读、可编辑、可 diff、可版本管理</strong>。你随手打开就能看见「主角现在在哪、哪条伏笔还没收」。写崩了想回滚，复制一份旧的覆盖即可。不需要装任何服务。</p>
+<p><strong>图谱派：把关系显式画出来。</strong> 代表是 SAGA——用 Neo4j 知识图谱记人物、事件与关系。它的杀手锏是<strong>关系查询</strong>：谁跟谁是什么关系、某件事的因果链是什么、某条伏笔涉及哪几个人。这些在文件里是「散在两段的字」，在图里是「一条可以直接查的边」。</p>
+<p><strong>向量派：让它随时能查。</strong> 代表是 Goink——本地中文语义模型 + sqlite-vec 向量索引。它不追求「记住」，追求「<strong>找得到</strong>」：写到第五十章要找「主角第一次见到那个吊坠」，不用逐章翻，一句话按意思搜出来，离线可用。</p>
+<h2 id="_2">二、各自的代价，没人会主动告诉你</h2>
+<p><strong>文件的代价：关系不显式，会越写越乱。</strong> 十二栏撑得住单线叙事，撑不住群像。当一本书有三十个主要人物、五条并行线、上百个伏笔，一份 Markdown 迟早变成谁也读不完的流水账。<strong>它的上限是「一个人还能一眼扫完」。</strong></p>
+<p><strong>图谱的代价：运维。</strong> 搭 Neo4j 意味着装 Java、配数据库、管备份、处理端口与权限。SAGA 的说明里光数据库配置就占了整节，还特意写明「示例配置是一次性的冒烟测试，不是可持久的部署」。<strong>你搭的是一套系统，不是一个文件</strong>——它需要你有能力维护它。</p>
+<p><strong>向量的代价：只能检索，不能校验。</strong> 向量索引能帮你「找到相关的片段」，但它<strong>不判断对错</strong>。它不会告诉你「这里人物性格跟档案矛盾了」。检索解决的是「我找不到」，校验解决的是「我写错了」——这是两回事，别指望一个工具干两件事。</p>
+<h2 id="saga">三、SAGA 给的一条关键警醒</h2>
+<p>SAGA 的说明里有一句最容易被忽略、但最重要的话：</p>
+<blockquote>
+<p>图谱事务、稿件文件、SQLite 检查点是<strong>三套独立的存储边界</strong>。恢复时要<strong>对账</strong>，而不是假设某一次写入是原子的。</p>
+</blockquote>
+<p>翻译成人话：<strong>你把状态拆到几套系统里，就有几处会不一致。</strong></p>
+<p>图谱里主角已经死了，稿件文件里还活着；检查点记着第 47 章，实际只写到第 45 章。这不是哪个系统写错了，是<strong>它们本来就不可能同时写完</strong>。断电、崩进程、并发写，任何一次意外都会让几套存储错位。</p>
+<p>所以选介质之前，先回答一个问题：<strong>出故障时，我有没有能力看出哪一套是对的、并把它们对齐？</strong> 如果没有，就别拆那么多套。<strong>存储越分散，对账越难。</strong></p>
+<h2 id="_3">四、选型表：按你的书写法挑</h2>
+<table>
+<thead>
+<tr>
+<th>你的情况</th>
+<th>建议路线</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单线叙事、人物二十个以内</td>
+<td><strong>文件</strong></td>
+<td>一份状态卡加一张伏笔表就够，多余的都是负担</td>
+</tr>
+<tr>
+<td>群像、多线并行、伏笔上百</td>
+<td><strong>文件 + 图谱</strong></td>
+<td>关系必须显式，否则查不动</td>
+</tr>
+<tr>
+<td>资料量大、常要「按意思找」</td>
+<td><strong>文件 + 向量检索</strong></td>
+<td>补上「找得到」，但校验仍靠文件</td>
+</tr>
+<tr>
+<td>文风试写、短篇、练手</td>
+<td><strong>只要文件</strong></td>
+<td>别为三万字搭数据库</td>
+</tr>
+<tr>
+<td>想长期连载（百万字级）</td>
+<td>文件打底 +（图谱或向量择一）</td>
+<td>先稳下限，再补能力</td>
+</tr>
+</tbody>
+</table>
+<p>一句话原则：<strong>先文件，后加装。</strong> 文件是所有路线的公共底座——图谱和向量检索最终也是把片段取出来，交给文件里的规则去比对。跳过文件直接上图谱，等于地基不浇直接搭楼。</p>
+<h2 id="_4">五、不管放哪，两件事决定成败</h2>
+<p><strong>第一件：能不能回写。</strong> 存储介质再花哨，只要缺了「写完把变化写回去」这一步，整套系统就是死的。<strong>这一条不分流派，是共同底线。</strong></p>
+<p><strong>第二件：能不能检查。</strong> NovelClaw 给自己的卖点是「可检查的运行」——每一步都能回看、能改，不是丢给你一段文字了事。这个特性在选介质时比「快不快」重要得多：<strong>看不到、改不动的记忆，等于没有记忆。</strong></p>
+<h2 id="_5">六、结论</h2>
+<p>介质之争，本质是<strong>规模之争</strong>。</p>
+<ul>
+<li>二十万字以前，一份 Markdown 无所不能。</li>
+<li>五十万字往上，<strong>关系开始比内容重要</strong>，这时才轮到图谱或向量登场。</li>
+<li>而无论到哪一步，<strong>「回写」和「可检查」永远是横在所有介质之上的两条铁律</strong>。</li>
+</ul>
+<p>所以别纠结「哪个最先进」。<strong>先问你的书多大、你的关系有多乱、你出故障时能不能自救</strong>——这三个答案会直接告诉你该用哪个。</p>
+</article></div>
+<footer class="site-foot"><div class="wrap">
+  <div class="cols">
+    <div>
+      <b>执笔惊鸿 · 网文写作智库</b>
+      <p style="margin:0;line-height:1.8">写给网文作者的写作智库：从开书、黄金三章到大纲、爽点、钩子与连载中期救火，外加 AI 写作实操与全网工具，附可直接使用的免费在线工具。</p>
+    </div>
+    <div><b>栏目</b><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a></div>
+    <div><b>工具与信息</b>
+      <a href="/tools/ai-flavor.html">AI 味检测器</a>
+      <a href="/tools/cheatsheet.html">平台规则速查</a>
+      <a href="/oss/">开源工具导航</a>
+      <a href="/about.html">关于本站</a>
+      <a href="/sitemap.xml">站点地图</a>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 执笔惊鸿</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">备案号 苏ICP备2026033843号-1</a>
+    <span style="margin-left:auto;color:#a49c8e">内容为写作经验分享，不构成平台官方承诺，规则以各平台后台为准。</span>
+  </div>
+</div></footer>
+</body>
+</html>

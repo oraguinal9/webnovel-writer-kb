@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 写到三十章就崩，问题不在模型 · 网文写作智库</title>
+<meta name="description" content="前十章还行，后面开始重复、忘设定、伏笔不回、人物走形——这不是模型不行，是&quot;靠上下文维系连贯&quot;这条路本身就走不通。GitHub 上六个头部项目，给了同一个答案。">
+<link rel="canonical" href="https://zbjh.top/ai/long-novel-state.html">
+<meta property="og:title" content="AI 写到三十章就崩，问题不在模型 · 网文写作智库">
+<meta property="og:description" content="前十章还行，后面开始重复、忘设定、伏笔不回、人物走形——这不是模型不行，是&quot;靠上下文维系连贯&quot;这条路本身就走不通。GitHub 上六个头部项目，给了同一个答案。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="执笔惊鸿">
+<link rel="stylesheet" href="/assets/style.css">
+
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="/"><span class="seal">笔</span><span>执笔惊鸿<small style="margin-left:6px">网文写作智库</small></span></a>
+  <nav class="nav"><a href="/">首页</a><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/" class="on">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a><a href="/tools/">实用工具</a></nav>
+</div></header>
+<div class="wrap"><article class="article">
+  <div class="crumb"><a href="/">首页</a> / <a href="/ai/">AI 写作</a></div>
+  <h1>AI 写到三十章就崩，问题不在模型</h1>
+  <div class="ameta"><span>2026-10-11</span><span>约 2600 字</span><span style="margin-left:auto"><span class="tag">长篇一致性</span><span class="tag">上下文管理</span><span class="tag">状态回写</span><span class="tag">工程化</span></span></div>
+  <p class="lead">很多人第一次用 AI 写长篇，都会经历同一个过程：前几章惊艳，第十章还行，第二十章开始觉得哪里不对，第三十章已经不能看了——主角的性格在漂移，前面埋的伏笔没人记得，前几天刚立下的规矩被自己打破，同一个场景描写反复出现。</p>
+<p>第一反应通常是「模型不行」或者「上下文不够长」。于是换更贵的模型、把设定贴得更满、把前文全塞进去。</p>
+<p>收效有限。因为问题不在模型，也不在窗口长度，而在一个更基本的地方：<strong>你在让它靠记忆写作，而它没有记忆。</strong></p>
+<h2 id="_1">上下文是工作记忆，不是长期记忆</h2>
+<p>模型的上下文窗口像一张摊开的桌面。你把大纲、设定、人物卡、前文都摊上去，它就能同时看到——看起来像记忆。但桌面的问题是：它会满，而且满了要清。</p>
+<p>更麻烦的是，每清一次，被清掉的东西不会变成「印象」，它是真的没了。你写第 300 章时，第 30 章那个伏笔不在桌面上，模型不知道它存在，不是因为它忘了，而是因为在它眼里这件事从未发生。</p>
+<p>人类的作者靠什么写第 300 章？靠长期记忆里的模糊印象，加上笔记、大纲、人物表这些外部记录。<strong>人从来不靠记忆硬扛长篇，人靠的是笔记。</strong> 但我们给 AI 用 AI 写作时，第一反应却是让它硬扛。</p>
+<h2 id="_2">六个头部项目的同一个答案</h2>
+<p>这件事上，GitHub 上做长篇写作工具的人已经用脚投票了。看几个下载量最高的项目，它们在功能上各有取舍，却在一个判断上完全一致——<strong>把状态写进文件，不写进对话。</strong></p>
+<p><strong>Oh Story</strong>（7428 星）的做法最直观。它维护一份「追踪/上下文.md」，固定七栏、硬上限 12KB，写第 21 章之前只读这一份，而且<strong>这份文件不进正文的提示词</strong>。七栏里包括当前位置、长期约束、活跃伏笔、下一章承诺。它还做了一个细节：把「作者真相」和「读者已知」分开记——谁是幕后黑手，读者此刻知不知道，用两个字段管。角色提前知道答案、伏笔写飞，多半就是这个没分开。</p>
+<p><strong>天命</strong>（438 星，Windows 桌面）把这件事做成了闭环：</p>
+<pre><code>写前读取 → AI 写作 → 门禁校验 → 正文落地 → 状态回写 → 下一章读取最新状态
+</code></pre>
+<p>它的自我定位一句话就能记住：<strong>不靠上下文，靠状态。</strong> 每章生成后，模型必须交付十二类变更声明（角色状态、冲突进度、伏笔动作、角色移动、物品流转、秘密揭示等），系统据此更新十五维事实快照；第 3001 章读到的是第 3000 章落地后写入的真实字段值，不是模型的模糊回忆。</p>
+<p><strong>小说锻炉</strong>（DeepSeek Harness 插件）讲得更狠。它的设计主线只有一句：<strong>代码强制 &gt; 提示词自觉。</strong> 凡是「靠模型自觉」的约束都会失效，所以一致性、门禁、审计必须是工具层的硬约束。它的事实账本会在同一章改动既有设定值时直接拒绝——「张三畏火」，模型就不能写他独闯火窟。</p>
+<p><strong>Chinese-WebNovel-Skill</strong>（855 星）从架构层面给了另一个角度：一个巨型提示词同时兼顾开头、转场、对白、逻辑、审查，最后会<strong>全部变钝</strong>。所以它把主技能压缩成路由表，细节下沉到十个专项模块，再配本地语料检索。</p>
+<p><strong>Goink</strong>（444 星）走的是另一条路：不让模型"记住"，而是让它<strong>随时能查</strong>。BGE 中文语义模型本地推理、sqlite-vec 向量索引，写到第五十章要找「主角第一次见到那个吊坠」，不用逐章翻，一句话按意思搜出来。写完自动增量索引，离线可用。</p>
+<p><strong>千笔一文</strong>（46 星）补上了最容易被忽略的一环——<strong>预算</strong>。设定不分青红皂白全塞进提示词，五千章后一定被截成一团糊。它的做法是设定按条目登记、按锚点激活、按预算注入：这一章要用到哪几条，就只给哪几条。</p>
+<h2 id="_3">归纳起来只有四条</h2>
+<p>剥掉各家术语，做法其实是同一件事的四个面：</p>
+<ol>
+<li><strong>状态外置</strong>：人物、地点、时间线、伏笔、物品、承诺，全部落成结构化字段，写进文件或数据库。</li>
+<li><strong>每章回写</strong>：写完不是结束，而是把本章发生的变化写回状态，供下一章读取。缺这一步，前面三条全废。</li>
+<li><strong>按需注入</strong>：下一章只读它真正需要的部分，不是把全书扔进去。</li>
+<li><strong>门禁拦截</strong>：写完先过检查——字数是否在区间、章末有无钩子、与前文有无大段重复、设定有没有被违反。不通过不落地。</li>
+</ol>
+<h2 id="_4">不装软件也能做的最小方案</h2>
+<p>你不必为此装一套系统。这件事的最小可用版本只需要三份东西：</p>
+<p><strong>一、一张状态卡。</strong> 固定栏目，随章更新：当前章节与位置、主要人物的当下状态（能力、关系、所处地点）、当前活跃的冲突线、已生效的硬约束（一旦写下就不许反悔的规矩）。</p>
+<p><strong>二、一张伏笔表。</strong> 每行四条：编号、内容、埋设章节、状态（已埋未收／已回收）。这本书只要超过五十章，这张表就是救命的——它唯一的用途是让你在每章开头扫一眼，看有没有该收的没收。</p>
+<p><strong>三、一条回写规矩。</strong> 每章写完，用三句话写下本章改变了什么：谁的状态变了、哪个伏笔动了、哪条冲突推进了。写进状态卡，再开下一章。</p>
+<p>第三份最容易省，也最不能省。<strong>前两份是给你看的，第三份是给下一章用的。</strong></p>
+<p>如果你已经在用章节卡、大纲、人物小传，那你其实已经有了雏形。缺的往往不是文件，而是那条「写完必须回写」的纪律——以及一个判断：哪些字段值得追踪。</p>
+<h2 id="_5">说清楚它管什么、不管什么</h2>
+<p>这套东西能保证的只有一件事：<strong>不崩。</strong> 设定不矛盾、伏笔不丢、时间线不错乱、人物不换人格。</p>
+<p>它保证不了好看。门禁能拦下「本章没有钩子」，拦不下「这个钩子很俗」；能拦下「人物性格与档案矛盾」，拦不下「这个人物写得无聊」。<strong>工程化解决的是下限，上限仍然是作者的事。</strong></p>
+<p>反过来说也成立：如果一本书连下限都不稳，再好的构思也会被读者当成乱写。这是长篇作者在先期最值得投的一笔基础设施。</p>
+<h2 id="_6">想直接上手的话</h2>
+<p>上面几个项目都是开源的，装法各不相同：</p>
+<ul>
+<li>用 Claude Code 或 Codex，看 <strong>Oh Story</strong> 与 <strong>Webnovel Writer</strong>（前者全流程，后者专攻长篇一致性）</li>
+<li>用 DeepSeek Harness，看 <strong>小说锻炉</strong>，它的硬约束最彻底</li>
+<li>想要桌面软件，看 <strong>天命</strong>（.NET，Windows）或 <strong>千笔一文</strong>（Python，人机共写）</li>
+<li>只想检索不想重建，看 <strong>Goink</strong></li>
+</ul>
+<p>这些项目的核实清单与源码地址，本站已整理在<a href="/oss/">开源工具</a>页。</p>
+<p>最后提醒一句：<strong>别一次上齐。</strong> 先做那张状态卡加回写规矩，写十章，感受一下「下一章能读到上一章变化」带来的差别。有效再往里加东西。工具是拿来兜底的，不是拿来撑场面的。</p>
+</article></div>
+<footer class="site-foot"><div class="wrap">
+  <div class="cols">
+    <div>
+      <b>执笔惊鸿 · 网文写作智库</b>
+      <p style="margin:0;line-height:1.8">写给网文作者的写作智库：从开书、黄金三章到大纲、爽点、钩子与连载中期救火，外加 AI 写作实操与全网工具，附可直接使用的免费在线工具。</p>
+    </div>
+    <div><b>栏目</b><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a></div>
+    <div><b>工具与信息</b>
+      <a href="/tools/ai-flavor.html">AI 味检测器</a>
+      <a href="/tools/cheatsheet.html">平台规则速查</a>
+      <a href="/oss/">开源工具导航</a>
+      <a href="/about.html">关于本站</a>
+      <a href="/sitemap.xml">站点地图</a>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 执笔惊鸿</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">备案号 苏ICP备2026033843号-1</a>
+    <span style="margin-left:auto;color:#a49c8e">内容为写作经验分享，不构成平台官方承诺，规则以各平台后台为准。</span>
+  </div>
+</div></footer>
+</body>
+</html>

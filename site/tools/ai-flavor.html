@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 味检测器 · 网文写作智库</title>
+<meta name="description" content="免费在线 AI 味检测器：粘贴网文正文，即时扫出 AI 高频词、套路句式、重复词与破折号，给出评分与逐条修改建议。纯浏览器运行，稿件不上传。">
+<link rel="canonical" href="https://zbjh.top/tools/ai-flavor.html">
+<meta property="og:title" content="AI 味检测器 · 网文写作智库">
+<meta property="og:description" content="免费在线 AI 味检测器：粘贴网文正文，即时扫出 AI 高频词、套路句式、重复词与破折号，给出评分与逐条修改建议。纯浏览器运行，稿件不上传。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="执笔惊鸿">
+<link rel="stylesheet" href="/assets/style.css">
+<script src="/assets/ai-flavor.js" defer></script>
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="/"><span class="seal">笔</span><span>执笔惊鸿<small style="margin-left:6px">网文写作智库</small></span></a>
+  <nav class="nav"><a href="/">首页</a><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a><a href="/tools/" class="on">实用工具</a></nav>
+</div></header>
+<div class="wrap">
+<section>
+  <div class="sec-head"><h2>AI 味检测器</h2><span class="more" style="color:#a49c8e">纯浏览器运行 · 稿件不上传 · 免费</span></div>
+  <div class="toolbox">
+    <textarea id="src" placeholder="把一章正文粘贴到这里（建议 2000 字以上），检测会自动开始……"></textarea>
+    <div class="toolbar">
+      <button class="btn primary" id="run">开始检测</button>
+      <button class="btn" id="sample">填入示例</button>
+      <button class="btn" id="clear">清空</button>
+      <span class="hint">检测项：AI 高频词 · 套路句式 · 重复词 · 破折号与省略号</span>
+    </div>
+    <div class="resultbox" id="result"></div>
+  </div>
+</section>
+<section>
+  <div class="article" style="padding-top:0;max-width:760px;margin:0 auto">
+    <h2>它查什么</h2>
+    <p>网文被编辑或读者判定为「AI 写的」，往往不是因为情节，而是因为一批反复出现的词汇和句式。本工具照这套判据，把一章正文里最容易被机器腔拖累的地方挑出来：</p>
+    <ul>
+      <li><b>AI 高频词</b>：仿佛、似乎、忽然、瞬间、然而、这一刻、嘴角勾起、眼中闪过一丝一类。这类词本身不错，问题在密度——一章里出现十几次，读者立刻出戏。</li>
+      <li><b>套路句式</b>：「不是…而是…」的绕圈句、「愤怒地说」式的副词句、「既…又…」的对称排比句。</li>
+      <li><b>重复词</b>：同一个人名、动作或形容词在短距离内反复出现，读起来像复读机。</li>
+      <li><b>破折号与省略号</b>：过量使用是机器生成文本的典型特征。</li>
+    </ul>
+    <h2>怎么用才有效</h2>
+    <p>它给的是一个<b>筛查清单，不是判决书</b>。分数低不代表稿子不好，只说明有机器腔的痕迹需要清理。正确用法是：先看「问题清单」，把高危项逐条改掉，再复检看分数有没有回升。改稿时优先处理重复次数最多的那几处，收益最大。</p>
+    <div class="tip"><b>隐私说明</b>：所有计算都在你的浏览器里完成，正文不会发送到任何服务器，关闭页面即消失。可以放心粘贴未发布的稿子。</div>
+  </div>
+</section>
+</div>
+<footer class="site-foot"><div class="wrap">
+  <div class="cols">
+    <div>
+      <b>执笔惊鸿 · 网文写作智库</b>
+      <p style="margin:0;line-height:1.8">写给网文作者的写作智库：从开书、黄金三章到大纲、爽点、钩子与连载中期救火，外加 AI 写作实操与全网工具，附可直接使用的免费在线工具。</p>
+    </div>
+    <div><b>栏目</b><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a></div>
+    <div><b>工具与信息</b>
+      <a href="/tools/ai-flavor.html">AI 味检测器</a>
+      <a href="/tools/cheatsheet.html">平台规则速查</a>
+      <a href="/oss/">开源工具导航</a>
+      <a href="/about.html">关于本站</a>
+      <a href="/sitemap.xml">站点地图</a>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 执笔惊鸿</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">备案号 苏ICP备2026033843号-1</a>
+    <span style="margin-left:auto;color:#a49c8e">内容为写作经验分享，不构成平台官方承诺，规则以各平台后台为准。</span>
+  </div>
+</div></footer>
+</body>
+</html>

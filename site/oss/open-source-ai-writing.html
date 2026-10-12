@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026 开源 AI 写作工具实测清单：33 个项目怎么选 · 网文写作智库</title>
+<meta name="description" content="网上关于&quot;AI 写小说工具&quot;的文章，一半在推付费产品，另一半的工具名连域名都是错的。这份清单是从 GitHub 逐个拉源码核实过的，含星数、语言、许可证、最后更新与适用场景。">
+<link rel="canonical" href="https://zbjh.top/oss/open-source-ai-writing.html">
+<meta property="og:title" content="2026 开源 AI 写作工具实测清单：33 个项目怎么选 · 网文写作智库">
+<meta property="og:description" content="网上关于&quot;AI 写小说工具&quot;的文章，一半在推付费产品，另一半的工具名连域名都是错的。这份清单是从 GitHub 逐个拉源码核实过的，含星数、语言、许可证、最后更新与适用场景。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="执笔惊鸿">
+<link rel="stylesheet" href="/assets/style.css">
+
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="/"><span class="seal">笔</span><span>执笔惊鸿<small style="margin-left:6px">网文写作智库</small></span></a>
+  <nav class="nav"><a href="/">首页</a><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/" class="on">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a><a href="/tools/">实用工具</a></nav>
+</div></header>
+<div class="wrap"><article class="article">
+  <div class="crumb"><a href="/">首页</a> / <a href="/oss/">开源工具</a></div>
+  <h1>2026 开源 AI 写作工具实测清单：33 个项目怎么选</h1>
+  <div class="ameta"><span>2026-10-11</span><span>约 3279 字</span><span style="margin-left:auto"><span class="tag">开源</span><span class="tag">工具清单</span><span class="tag">实测</span><span class="tag">选型</span></span></div>
+  <p class="lead">网上搜「AI 写小说工具」，能搜到几十篇盘点。问题有两个：一半是软文，把自家付费产品和免费工具混在一起讲；另一半连名字都不对——把工具官网记错的、把概念稿当成已上线产品的、把某个模型的介绍当成工具的，都有。</p>
+<p>所以这份清单换了种做法：<strong>不抄别人的盘点，直接从 GitHub 拉。</strong></p>
+<h2 id="_1">怎么核实的</h2>
+<ul>
+<li>用 GitHub 官方接口按多组关键词检索，收集候选；</li>
+<li>逐个拉仓库的 README 或 SKILL.md 正文，确认它到底做什么，<strong>不接受"简介里说得好听"</strong>；</li>
+<li>逐个核对星数、主语言、许可证、最后推送时间，<strong>把已经不更新的剔除</strong>；</li>
+<li>名目对不上、查不到实际内容的，一律不收。</li>
+</ul>
+<p>最后保留 <strong>33 个</strong>。数据截至 <strong>2026 年 10 月 11 日</strong>。完整清单在<a href="/oss/">开源工具</a>页，这里给结论和选型。</p>
+<h2 id="_2">一句话看清四个方向</h2>
+<p>这 33 个项目其实分了四类，选之前先确认你是哪一类需求：</p>
+<table>
+<thead>
+<tr>
+<th>你想要</th>
+<th>看这一类</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>装进现有编程 Agent，让它按流程干活</td>
+<td>写作技能包</td>
+<td>Oh Story、Webnovel Writer、小说锻炉</td>
+</tr>
+<tr>
+<td>把稿子洗得不像机器写的</td>
+<td>去 AI 味</td>
+<td>lieflat、说人话、去 AI 味（qu-ai-wei）</td>
+</tr>
+<tr>
+<td>要一个看得见摸得着的桌面软件</td>
+<td>桌面软件</td>
+<td>天命、青幕、易创、弧光</td>
+</tr>
+<tr>
+<td>拆书、诊断、看学术进展</td>
+<td>拆书与研究</td>
+<td>AI 网文诊断台、Awesome Story Generation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">技能包：不适合所有人，但效率最高的一类</h2>
+<p>这一类是这两年冒出来的新形态：<strong>它不是软件，是一套装进 Claude Code、Codex、DeepSeek Harness 这类编程 Agent 里的工作流</strong>。装好之后，你在对话里说「写第 21 章」，它按预设流程走——先读状态、再写、写完自查、回写状态。</p>
+<p>前两名星数几乎持平，定位却有区别：</p>
+<ul>
+<li><strong><a href="https://github.com/zenstory-ai/oh-story-claudecode">Oh Story</a></strong>（7428 星，MIT）覆盖全流程：扫榜选材、拆解爆款、搭大纲写正文、去 AI 味、生成封面图，共 13 个技能。适合从零开始一本书的完整周期。</li>
+<li><strong><a href="https://github.com/lingfengQAQ/webnovel-writer">Webnovel Writer</a></strong>（7418 星，GPL-3.0）专攻长篇一致性，官方称支持 200 万字量级连载。如果你已经在写、痛点是"写到后面崩了"，它更对症。</li>
+</ul>
+<p>真正让我意外的是 <strong><a href="https://github.com/huangziyuan-general/dsh-novel-forge">小说锻炉</a></strong>（15 星，MIT）。它星数不高，但设计思路是所有项目里最清醒的——<strong>代码强制 &gt; 提示词自觉</strong>。它把"AI 长篇写作通病"做成了一张对照表，每条通病配一个工程解法：重复检测、阶段门禁、事实账本、提案制修订、熔断机制。星数低是因为发布晚，不是因为它差。</p>
+<p>另一类值得关注的是 <strong>模块化派</strong>：<strong><a href="https://github.com/Tomsawyerhu/Chinese-WebNovel-Skill">Chinese-WebNovel-Skill</a></strong>（855 星）把主技能压成路由，细节下沉到十个专项模块，另配本地语料检索。它的判断是——一个巨型提示词同时管开头、转场、对白、逻辑、审查，最后会全部变钝。</p>
+<h2 id="ai">去 AI 味：这一类最需要"看证据"</h2>
+<p>去 AI 味项目有七个，大部分只给一份提示词。但有三个值得单独说，因为它们给的是<strong>证据</strong>，不是口号：</p>
+<ul>
+<li><strong><a href="https://github.com/larashero3-dotcom/lieflat-less-ai-tone">lieflat-less-ai-tone</a></strong>（2664 星，MIT）：规则来自人类文章与多个模型输出的实测对比，每条都带触发标记和倍率数据。它还有一张「不作为改写理由」表，专门推翻流行的错误判据。</li>
+<li><strong><a href="https://github.com/MrGeDiao/shuorenhua">说人话</a></strong>（2051 星，MIT）：有 123 条评测集，把「正常文本误改率低于 10%」写成发布门槛。<strong>它明确声明自己不判断文章是不是 AI 写的，也不提供规避检测的保证</strong>——这种克制反而可信。</li>
+<li><strong><a href="https://github.com/LifelongLazyLearner/qu-ai-wei">去 AI 味 qu-ai-wei</a></strong>（642 星，MIT）：最实用的是那张十类中文结构表，每一类都标注「什么时候值得改、什么时候要保留」。</li>
+</ul>
+<p><strong><a href="https://github.com/orange2ai/renwei-writing">人味儿写作心法</a></strong>（1094 星）是异类：它不给词表，讲的是文字背后那个具体的人。对"改了三遍越改越没味"的情况，它的解释比规则表更接近病因。</p>
+<h2 id="_4">桌面软件：全本地的越来越多了</h2>
+<p>这一类功能面差异很大，按需选：</p>
+<ul>
+<li><strong>要最全的设定工具</strong>：<strong><a href="https://github.com/xiaoshengxianjun/51mazi">51mazi</a></strong>（478 星）有地图设计、随机取名、词条字典、时间线、事序图，是设定党的工具箱。</li>
+<li><strong>要图谱理清关系</strong>：<strong><a href="https://github.com/uu201/character-arc">弧光 CharacterArc</a></strong>（584 星）用 Cytoscape 做关系图谱，剧情大纲是双栏交错时间线。</li>
+<li><strong>要数据完全在自己手里</strong>：<strong><a href="https://github.com/yilujian/easy-writing">易创</a></strong>（700 星，AGPL-3.0）纯本地、BYOK、提示词全是本机 md 文件，连采样温度都能改。</li>
+<li><strong>要工程化最彻底</strong>：<strong><a href="https://github.com/zy-zmc/tianming-novel-ai-writer">天命</a></strong>（438 星）用十五维事实快照加十二类变更声明管一本书，主打"不靠上下文，靠状态"。开源版作者自己标注了若干待修缺陷，动手前先读它的「重点缺失」。</li>
+<li><strong>要极简</strong>：<strong><a href="https://github.com/Nigh/show-me-the-story">Show Me The Story</a></strong>（622 星）整个应用打成一个不到 5MB 的可执行文件，解压就能跑。</li>
+<li><strong>笔记在 Obsidian 里</strong>：<strong><a href="https://github.com/HatanoChihiro/obsidian-webnovel-assistant">WebNovel Assistant</a></strong>（233 星）是插件，带时间线、伏笔管理与 OBS 直播字数叠加层。</li>
+</ul>
+<h2 id="_5">三条选型建议</h2>
+<p><strong>一、看活跃度，不要只看星数。</strong> 这批项目迭代极快，最后推送时间在三个月前的，可能已经跟不上模型的能力变化。清单里每个项目都标了最后推送日期——<strong>这个数字比星数更重要。</strong></p>
+<p><strong>二、看清许可证。</strong> 这批项目里有 GPL-3.0、AGPL-3.0、Apache 与自定义许可混合。自己用没问题，但<strong>如果要二次分发、做成服务卖给他人，AGPL 类是有传染性的</strong>，动手前务必读 LICENSE。这不是危言耸听，是常见踩坑点。</p>
+<p><strong>三、数据留在本地。</strong> 好消息是：这 33 个项目里，绝大多数是本地运行或 BYOK（用你自己的 API Key），作品和设定存在你自己电脑上。<strong>选工具时把这条当硬指标</strong>——作品是你的核心资产，不该锁在别人的服务器里。</p>
+<h2 id="_6">最后一句</h2>
+<p>整理这份清单时，最让我意外的不是工具有多少，而是<strong>头部项目已经收敛出一套共识</strong>：状态外置、每章回写、按需注入、门禁拦截。它们用不同语言、不同架构，做出了同一个判断。</p>
+<p>这意味着两件事：其一，这条路是通的，不必再怀疑方法论；其二，<strong>你不必装任何工具也能走这条路</strong>——一张状态卡、一张伏笔表、一条回写纪律，就是最小可用版本。工具只是把这套纪律自动化了。</p>
+<p>完整清单（含每项的适用场景与注意点）：<strong><a href="/oss/">开源工具</a></strong></p>
+</article></div>
+<footer class="site-foot"><div class="wrap">
+  <div class="cols">
+    <div>
+      <b>执笔惊鸿 · 网文写作智库</b>
+      <p style="margin:0;line-height:1.8">写给网文作者的写作智库：从开书、黄金三章到大纲、爽点、钩子与连载中期救火，外加 AI 写作实操与全网工具，附可直接使用的免费在线工具。</p>
+    </div>
+    <div><b>栏目</b><a href="/guide/">新手入门</a><a href="/skill/">写作技法</a><a href="/ai/">AI 写作</a><a href="/oss/">开源工具</a><a href="/platform/">平台指南</a><a href="/news/">行业资讯</a></div>
+    <div><b>工具与信息</b>
+      <a href="/tools/ai-flavor.html">AI 味检测器</a>
+      <a href="/tools/cheatsheet.html">平台规则速查</a>
+      <a href="/oss/">开源工具导航</a>
+      <a href="/about.html">关于本站</a>
+      <a href="/sitemap.xml">站点地图</a>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 执笔惊鸿</span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">备案号 苏ICP备2026033843号-1</a>
+    <span style="margin-left:auto;color:#a49c8e">内容为写作经验分享，不构成平台官方承诺，规则以各平台后台为准。</span>
+  </div>
+</div></footer>
+</body>
+</html>
